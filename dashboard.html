@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>AVALIA NR01 PRO — Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/branding.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="top-nav">
+    <div class="wrap nav-wrap">
+      <div class="logo">
+        <img src="assets/logo.svg" alt="Logo">
+        <span>AVALIA NR01 PRO</span>
+      </div>
+
+      <div class="nav-actions">
+        <span id="userBadge" class="user-badge"></span>
+        <span class="nav-divider"></span>
+        <button class="btn ghost" onclick="exportPDF()">Exportar PDF</button>
+        <button class="btn ghost" onclick="logout()">Sair</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="container printable-area" id="printArea">
+    <div class="card card-dashboard">
+      <div class="card-header">
+        <div>
+          <h2>Relatório Psicossocial — Visão Geral</h2>
+          <p class="card-subtitle">
+            Painel de exemplo com dados fictícios para avaliação de demandas, controle, apoio, relações, papel e mudanças.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid dashboard-grid">
+        <div class="col-6 dashboard-chart">
+          <canvas id="radar"></canvas>
+        </div>
+        <div class="col-6 dashboard-actions">
+          <h3 class="section-title">Plano de Ação Sugerido</h3>
+          <div id="actions" class="actions-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    © 2025 AVALIA NR01 PRO — Ambiente de demonstração
+  </footer>
+
+  <script>
+    // 1. Verifica se existe usuário logado
+    const userRaw = localStorage.getItem('nr01_user');
+    if (!userRaw) {
+      window.location.href = "index.html";
+    }
+
+    const user = JSON.parse(userRaw);
+    const isDemo = user.role === "demo";
+
+    // 2. Atualiza badge com tipo de usuário
+    const userBadge = document.getElementById('userBadge');
+    userBadge.textContent = isDemo ? "Modo Demo" : "Usuário Profissional";
+    userBadge.classList.add(isDemo ? "badge-demo" : "badge-pro");
+
+    if (isDemo) {
+      document.body.classList.add("demo-mode");
+    }
+
+    // 3. Dados FICTÍCIOS para o radar (você depois troca por dados reais)
+    const labels = ["Demandas", "Controle", "Apoio", "Relações", "Papel", "Mudanças"];
+    const data = [3.0, 2.7, 3.2, 3.8, 4.0, 3.1];
+
+    const actions = [
+      {
+        priority: "Média",
+        dimension: "Demandas",
+        suggestion: "Rever prazos e redistribuição de tarefas, priorizando atividades críticas."
+      },
+      {
+        priority: "Média",
+        dimension: "Controle",
+        suggestion: "Aumentar a clareza sobre autonomia e responsabilidades em cada função."
+      },
+      {
+        priority: "Manter",
+        dimension: "Apoio",
+        suggestion: "Fortalecer os canais de apoio existentes e manter reuniões de acompanhamento."
+      },
+      {
+        priority: "Manter",
+        dimension: "Relações",
+        suggestion: "Estimular feedbacks construtivos e ações de integração entre equipes."
+      },
+      {
+        priority: "Manter",
+        dimension: "Papel",
+        suggestion: "Garantir atualização das descrições de cargo e alinhamento de expectativas."
+      },
+      {
+        priority: "Média",
+        dimension: "Mudanças",
+        suggestion: "Planejar mudanças com comunicação prévia e suporte durante o processo."
+      }
+    ];
+
+    // 4. Monta o gráfico radar
+    const ctx = document.getElementById('radar');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Média (1-5)',
+          data: data,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'top' }
+        },
+        scales: {
+          r: {
+            suggestedMin: 1,
+            suggestedMax: 5,
+            ticks: { stepSize: 1 }
+          }
+        }
+      }
+    });
+
+    // 5. Lista de ações
+    const actionsDiv = document.getElementById('actions');
+    actionsDiv.innerHTML = actions.map(a => `
+      <div class="card action-card">
+        <div class="action-header">
+          <span class="chip chip-${a.priority.toLowerCase()}">${a.priority}</span>
+          <strong>${a.dimension}</strong>
+        </div>
+        <p class="small">${a.suggestion}</p>
+      </div>
+    `).join("");
+
+    // 6. Logout
+    function logout() {
+      localStorage.removeItem('nr01_user');
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    // 7. Exportar em PDF (usa impressão do navegador)
+    function exportPDF() {
+      window.print();
+    }
+  </script>
+
+</body>
+</html>

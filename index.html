@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>AVALIA NR01 PRO — Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/branding.css">
+</head>
+<body class="login-body">
+
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo login-logo">
+        <img src="assets/logo.svg" alt="Logo">
+        <span>AVALIA NR01 PRO</span>
+      </div>
+      <p class="login-subtitle">
+        Acesse com seu usuário profissional ou utilize o modo demonstração.
+      </p>
+    </div>
+
+    <form id="loginForm" class="login-form">
+      <label>
+        Usuário
+        <input type="text" id="username" placeholder="profissa ou demo" required>
+      </label>
+
+      <label>
+        Senha
+        <input type="password" id="password" placeholder="••••••••" required>
+      </label>
+
+      <button type="submit" class="btn primary full">Entrar</button>
+
+      <div class="login-hint">
+        <strong>Usuários de teste:</strong><br>
+        Profissional → <code>profissa / 123456</code><br>
+        Demo → <code>demo / demo123</code>
+      </div>
+    </form>
+  </div>
+
+  <footer class="footer login-footer">
+    © 2025 AVALIA NR01 PRO — Versão de demonstração
+  </footer>
+
+  <script>
+    // "Banco" de usuários em memória só para demo
+    const USERS = {
+      "profissa": { password: "123456", role: "pro" },
+      "demo":     { password: "demo123", role: "demo" }
+    };
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim().toLowerCase();
+      const password = document.getElementById('password').value.trim();
+
+      const user = USERS[username];
+
+      if (!user || user.password !== password) {
+        alert("Usuário ou senha inválidos.");
+        return;
+      }
+
+      // Salva usuário na "sessão" (localStorage)
+      localStorage.setItem('nr01_user', JSON.stringify({
+        username: username,
+        role: user.role
+      }));
+
+      // Vai para o dashboard
+      window.location.href = "dashboard.html";
+    });
+  </script>
+
+</body>
+</html>
