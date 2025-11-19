@@ -4,15 +4,14 @@
   <meta charset="utf-8">
   <title>AVALIA NR01 PRO — Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/branding.css?v=2">
+  <link rel="stylesheet" href="assets/branding-V2.css?v=3">
 </head>
 <body class="login-body">
 
   <div class="login-card">
     <div class="login-header">
       <div class="logo login-logo">
-       <img src="assets/datainsight.png" alt="Datainsight SST">
-
+        <img src="assets/datainsight.png" alt="Datainsight SST">
         <span>AVALIA NR01 PRO</span>
       </div>
       <p class="login-subtitle">
@@ -46,7 +45,6 @@
   </footer>
 
   <script>
-    // "Banco" de usuários em memória só para demo
     const USERS = {
       "profissa": { password: "123456", role: "pro" },
       "demo":     { password: "demo123", role: "demo" }
@@ -65,18 +63,14 @@
         return;
       }
 
-      // Salva usuário na "sessão" (localStorage)
       localStorage.setItem('nr01_user', JSON.stringify({
         username: username,
         role: user.role
       }));
 
-      // Vai para o dashboard
       window.location.href = "dashboard.html";
     });
   </script>
 
 </body>
 </html>
-
-
