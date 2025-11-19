@@ -1,11 +1,4 @@
-/* Tamanho do gráfico radar */
-.dashboard-chart {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Layout geral */
+/* ===== Layout geral ===== */
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -19,14 +12,13 @@ body {
   padding: 0 16px;
 }
 
-/* NAVBAR */
-
+/* ===== NAVBAR ===== */
 .top-nav {
   position: sticky;
   top: 0;
   z-index: 10;
-  backdrop-filter: blur(12px);
-  background: rgba(248, 250, 252, 0.92);
+  backdrop-filter: blur(12px) saturate(140%);
+  background: rgba(248, 250, 252, 0.95);
   border-bottom: 1px solid rgba(148, 163, 184, 0.4);
 }
 
@@ -45,31 +37,12 @@ body {
 }
 
 .logo img {
-  height: 26px;
-}
-.logo img {
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
-}
-.top-nav {
-  background: rgba(248, 250, 252, 0.95);
-  backdrop-filter: blur(12px) saturate(140%);
+  height: 40px;
+  max-width: 220px;
+  object-fit: contain;
 }
 
-.nav-actions {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav-divider {
-  width: 1px;
-  height: 22px;
-  background: rgba(148, 163, 184, 0.6);
-}
-
-/* Botões */
-
+/* ===== Botões ===== */
 .btn {
   border-radius: 999px;
   border: none;
@@ -89,15 +62,6 @@ body {
   box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
 }
 
-.btn.secondary {
-  background: #e5edff;
-  color: #1d4ed8;
-}
-
-.btn.secondary:hover {
-  background: #d4e0ff;
-}
-
 .btn.ghost {
   background: transparent;
   border: 1px solid rgba(148, 163, 184, 0.6);
@@ -108,8 +72,7 @@ body {
   background: rgba(148, 163, 184, 0.08);
 }
 
-/* Container e cards */
-
+/* ===== Container e cards ===== */
 .container {
   max-width: 1080px;
   margin: 24px auto 32px;
@@ -136,8 +99,7 @@ body {
   color: #6b7280;
 }
 
-/* Grid */
-
+/* ===== Grid ===== */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -148,8 +110,20 @@ body {
   min-width: 0;
 }
 
-/* Plano de ação */
+/* ===== Radar menor ===== */
+.dashboard-chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+#radar {
+  width: 260px !important;
+  height: 260px !important;
+  display: block;
+}
+
+/* ===== Plano de ação ===== */
 .actions-list {
   display: flex;
   flex-direction: column;
@@ -161,7 +135,12 @@ body {
   border: 1px solid rgba(148, 163, 184, 0.5);
 }
 
-/* Chips */
+.action-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
 
 .chip {
   display: inline-flex;
@@ -182,8 +161,7 @@ body {
   color: #166534;
 }
 
-/* Badge de usuário */
-
+/* ===== Badge de usuário ===== */
 .user-badge {
   font-size: 0.8rem;
   padding: 4px 10px;
@@ -202,8 +180,7 @@ body {
   color: #166534;
 }
 
-/* Footer */
-
+/* ===== Footer ===== */
 .footer {
   text-align: center;
   font-size: 0.8rem;
@@ -211,8 +188,7 @@ body {
   padding: 16px 0 24px;
 }
 
-/* LOGIN */
-
+/* ===== LOGIN ===== */
 .login-body {
   display: flex;
   flex-direction: column;
@@ -233,17 +209,6 @@ body {
 .login-logo span {
   font-size: 1.1rem;
   color: #111827;
-}
-
-.login-subtitle {
-  margin-top: 4px;
-  font-size: 0.9rem;
-  color: #6b7280;
-}
-
-
-.login-logo span {
-  font-size: 1.1rem;
 }
 
 .login-subtitle {
@@ -294,8 +259,7 @@ body {
   margin-top: auto;
 }
 
-/* Modo demo destaque */
-
+/* ===== Modo demo destaque ===== */
 .demo-mode::before {
   content: "MODO DEMO — Ambiente de degustação";
   position: fixed;
@@ -310,14 +274,14 @@ body {
   z-index: 9999;
 }
 
-/* Impressão (Exportar PDF) */
-
+/* ===== Impressão (Exportar PDF) ===== */
 @media print {
   nav, .footer, .nav-actions button { display: none !important; }
   body { background: #fff; }
   .container { margin-top: 16px; }
   .card { box-shadow: none; border: 1px solid #e5e7eb; }
 }
+
 
 
 
